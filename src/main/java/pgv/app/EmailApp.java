@@ -1,14 +1,18 @@
 package pgv.app;
 
+import atlantafx.base.theme.Dracula;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pgv.controllers.LoginController;
 import pgv.controllers.EmailController;
+
+import java.util.Objects;
 
 public class EmailApp extends Application {
 
@@ -22,6 +26,10 @@ public class EmailApp extends Application {
 
     private void showLoginDialog() {
         try {
+            Application.setUserAgentStylesheet(new Dracula().getUserAgentStylesheet());
+
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/email-icon.png")));
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(EmailApp.class.getResource("/fxml/LoginView.fxml"));
             GridPane loginLayout = loader.load();
@@ -30,6 +38,7 @@ public class EmailApp extends Application {
             dialogStage.setTitle("Login");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
+            dialogStage.getIcons().add(icon);
             Scene scene = new Scene(loginLayout);
             dialogStage.setScene(scene);
 
